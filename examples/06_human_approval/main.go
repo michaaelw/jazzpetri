@@ -208,4 +208,8 @@ func main() {
 	if len(approvedBy) > 0 {
 		fmt.Printf("  Approved by:   %v\n", approvedBy)
 	}
+
+	// Print Petri net diagram
+	fmt.Println("\n--- Petri Net Diagram (Mermaid) ---")
+	fmt.Println(net.ToMermaid())
 }

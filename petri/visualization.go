@@ -59,7 +59,7 @@ func (pn *PetriNet) ToDOT() string {
 			weight = fmt.Sprintf(" [label=\"%d\"]", arc.Weight)
 		}
 		sb.WriteString(fmt.Sprintf("  %s -> %s%s;\n",
-			arc.Source, arc.Target, weight))
+			arc.SourceID, arc.TargetID, weight))
 	}
 
 	sb.WriteString("}\n")
@@ -76,12 +76,12 @@ func (pn *PetriNet) ToMermaid() string {
 
 	// Places (double circles)
 	for _, place := range pn.Places {
-		label := place.Name
+		label := escapeMermaidLabel(place.Name)
 		if place.Capacity > 0 {
 			label = fmt.Sprintf("%s<br/>cap:%d", label, place.Capacity)
 		}
 		sb.WriteString(fmt.Sprintf("  %s((%s))\n",
-			place.ID, escapeMermaidLabel(label)))
+			place.ID, label))
 	}
 
 	// Transitions (rectangles)
@@ -94,10 +94,10 @@ func (pn *PetriNet) ToMermaid() string {
 	for _, arc := range pn.Arcs {
 		if arc.Weight > 1 {
 			sb.WriteString(fmt.Sprintf("  %s -->|%d| %s\n",
-				arc.Source, arc.Weight, arc.Target))
+				arc.SourceID, arc.Weight, arc.TargetID))
 		} else {
 			sb.WriteString(fmt.Sprintf("  %s --> %s\n",
-				arc.Source, arc.Target))
+				arc.SourceID, arc.TargetID))
 		}
 	}
 

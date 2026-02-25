@@ -177,4 +177,8 @@ func main() {
 	// ------------------------------------------------------------------
 	fmt.Printf("\nTokens in '%s': %d\n", pComplete.Name, pComplete.TokenCount())
 	fmt.Println("\nWorkflow complete! Order #123 has been processed and shipped.")
+
+	// Print Petri net diagram
+	fmt.Println("\n--- Petri Net Diagram (Mermaid) ---")
+	fmt.Println(net.ToMermaid())
 }

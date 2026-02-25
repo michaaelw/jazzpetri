@@ -201,4 +201,8 @@ func main() {
 	fmt.Println()
 	fmt.Println("SLA escalation workflow complete.")
 	fmt.Println("(Total real elapsed time: < 1 second — VirtualClock made it instant.)")
+
+	// Print Petri net diagram
+	fmt.Println("\n--- Petri Net Diagram (Mermaid) ---")
+	fmt.Println(net.ToMermaid())
 }

@@ -158,6 +158,126 @@ Run any example:
 go run ./examples/01_simple_workflow
 ```
 
+### Visual Examples
+
+Each example prints its Mermaid diagram at the end of execution. Here are the workflows:
+
+#### 01 — Simple Order Processing
+
+A linear pipeline: receive, process, ship.
+
+```mermaid
+graph LR
+  order_received((Order Received))
+  order_processing((Order Processing))
+  order_complete((Order Complete))
+  process[Process Order]
+  ship[Ship Order]
+  order_received --> process
+  process --> order_processing
+  order_processing --> ship
+  ship --> order_complete
+```
+
+#### 02 — Conditional Routing
+
+Guard functions create an OR-split based on credit score.
+
+```mermaid
+graph LR
+  application((Application Received))
+  approved((Auto-Approved))
+  review_queue((Manual Review Queue))
+  auto_approve[Auto Approve]
+  manual_review[Send to Manual Review]
+  application --> auto_approve
+  auto_approve --> approved
+  application --> manual_review
+  manual_review --> review_queue
+```
+
+#### 03 — Parallel Processing
+
+AND-split fans out to three concurrent branches; AND-join waits for all.
+
+```mermaid
+graph LR
+  document((Document Uploaded))
+  ocr_pending((Awaiting OCR))
+  nlp_pending((Awaiting NLP))
+  meta_pending((Awaiting Metadata))
+  ocr_result((OCR Result))
+  nlp_result((NLP Result))
+  meta_result((Metadata Result))
+  enriched((Document Enriched))
+  split[AND-Split: Fan Out]
+  ocr[OCR Analysis]
+  nlp[NLP Analysis]
+  metadata[Metadata Extraction]
+  join[AND-Join: Merge Results]
+  document --> split
+  split --> ocr_pending
+  split --> nlp_pending
+  split --> meta_pending
+  ocr_pending --> ocr
+  ocr --> ocr_result
+  nlp_pending --> nlp
+  nlp --> nlp_result
+  meta_pending --> metadata
+  metadata --> meta_result
+  ocr_result --> join
+  nlp_result --> join
+  meta_result --> join
+  join --> enriched
+```
+
+#### 04 — Formal Verification
+
+Prove deadlock freedom, boundedness, and reachability before execution.
+
+```mermaid
+graph LR
+  idle((Producer Idle))
+  buffer((Shared Buffer))
+  done((Consumption Complete))
+  produce[Produce Item]
+  consume[Consume Item]
+  idle --> produce
+  produce --> buffer
+  buffer --> consume
+  consume --> done
+```
+
+#### 05 — Timed Triggers
+
+SLA escalation with VirtualClock — 25 hours of workflow in < 1 second.
+
+```mermaid
+graph LR
+  ticket_open((Ticket Open))
+  escalated((Ticket Escalated))
+  critical_breach((Critical — SLA Breach))
+  escalate[Escalate Ticket ⏱ 1h]
+  critical[Mark Critical ⏱ 24h]
+  ticket_open --> escalate
+  escalate --> escalated
+  escalated --> critical
+  critical --> critical_breach
+```
+
+#### 06 — Human Approval
+
+ManualTrigger blocks until an authorized approver signals approval.
+
+```mermaid
+graph LR
+  submitted((Expense Submitted))
+  approved((Expense Approved))
+  approve[Approve Expense Report 👤]
+  submitted --> approve
+  approve --> approved
+```
+
 ## Installation
 
 ```bash

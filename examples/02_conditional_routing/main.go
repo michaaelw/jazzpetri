@@ -197,4 +197,12 @@ func main() {
 
 	// Run the low credit-score scenario (should go to manual review).
 	runScenario("Bob", 620)
+
+	// Print Petri net diagram
+	net, _, _, _, err := buildLoanNet()
+	if err != nil {
+		log.Fatalf("failed to build diagram net: %v", err)
+	}
+	fmt.Println("--- Petri Net Diagram (Mermaid) ---")
+	fmt.Println(net.ToMermaid())
 }

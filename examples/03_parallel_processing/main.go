@@ -231,4 +231,8 @@ func main() {
 		elapsed.Round(time.Millisecond))
 	fmt.Printf("Tokens in '%s': %d\n", pEnriched.Name, pEnriched.TokenCount())
 	fmt.Println("\nDocument enrichment pipeline complete.")
+
+	// Print Petri net diagram
+	fmt.Println("\n--- Petri Net Diagram (Mermaid) ---")
+	fmt.Println(net.ToMermaid())
 }

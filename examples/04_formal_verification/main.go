@@ -245,6 +245,10 @@ func main() {
 	fmt.Println()
 	fmt.Println("This proof was produced by exhaustive state-space exploration.")
 	fmt.Println("It holds for every possible execution — not just the paths you tested.")
+
+	// Print Petri net diagram
+	fmt.Println("\n--- Petri Net Diagram (Mermaid) ---")
+	fmt.Println(net.ToMermaid())
 }
 
 // printResult pretty-prints a single VerificationResult.
